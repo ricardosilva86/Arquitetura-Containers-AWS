@@ -13,6 +13,11 @@ projects:
       when_modified: [ "*.tf", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
     depends_on: ["Network"]
 
+# Path: atlantis.yaml
+# This is a atlantis.yaml file that supports multiple environments
+# The file is located in the root of the repository
+# Each stage will have a plan, apply and import workflow
+# The plan and apply steps will use the environment specific terraform.tfvars file
 workflows:
   development:
     plan:
