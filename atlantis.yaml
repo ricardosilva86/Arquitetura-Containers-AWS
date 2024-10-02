@@ -18,33 +18,33 @@ workflows:
     plan:
       steps:
         - init:
-            extra_args: [-backend-config=01_VPC/environment/dev/backend.tfvars]
+            extra_args: [-backend-config=environment/dev/backend.tfvars]
         - plan:
-            extra_args: ["-var-file", "01_VPC/environment/dev/terraform.tfvars"]
+            extra_args: ["-var-file", "environment/dev/terraform.tfvars"]
     apply:
       steps:
         - apply:
-            extra_args: [ "-var-file", "01_VPC/environment/dev/terraform.tfvars" ]
+            extra_args: [ "-var-file", "environment/dev/terraform.tfvars"]
     import:
       steps:
         - init:
-            extra_args: [-backend-config=01_VPC/environment/dev/backend.tfvars]
+            extra_args: [-backend-config="environment/dev/terraform.tfvars"]
         - import:
-            extra_args: ["-var-file", "01_VPC/environment/dev/terraform.tfvars"]
+            extra_args: ["-var-file", "environment/dev/terraform.tfvars"]
   ecs:
     plan:
       steps:
         - init:
-            extra_args: [ -backend-config=02_ECS_CLUSTER/environment/dev/backend.tfvars ]
+            extra_args: [ -backend-config="environment/dev/terraform.tfvars" ]
         - plan:
-            extra_args: [ "-var-file", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
+            extra_args: [ "-var-file", "environment/dev/terraform.tfvars" ]
     apply:
       steps:
         - apply:
-            extra_args: [ "-var-file", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
+            extra_args: [ "-var-file", "environment/dev/terraform.tfvars"]
     import:
       steps:
         - init:
-            extra_args: [ -backend-config=02_ECS_CLUSTER/environment/dev/backend.tfvars ]
+            extra_args: [ -backend-config="environment/dev/terraform.tfvars" ]
         - import:
-            extra_args: [ "-var-file", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
+            extra_args: [ "-var-file", "environment/dev/terraform.tfvars" ]
