@@ -1,0 +1,12 @@
+version: 3
+abort_on_execution_order_fail: true
+projects:
+  - name: Network
+    dir: ./01_VPC
+    autoplan:
+      when_modified: [ "*.tf", "environment/dev/terraform.tfvars" ]
+  - name: ECS-Cluster
+    dir: ./02_ECS_CLUSTER
+    autoplan:
+      when_modified: [ "*.tf", "environment/dev/terraform.tfvars" ]
+    depends_on: ["Network"]
