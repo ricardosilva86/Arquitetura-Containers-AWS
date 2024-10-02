@@ -3,18 +3,18 @@ abort_on_execution_order_fail: true
 projects:
   - name: Network
     dir: ./01_VPC
-    workflow: vpc
+    workflow: development
     autoplan:
       when_modified: [ "*.tf", "01_VPC/environment/dev/terraform.tfvars" ]
   - name: ECS-Cluster
     dir: ./02_ECS_CLUSTER
-    workflow: ecs
+    workflow: development
     autoplan:
       when_modified: [ "*.tf", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
     depends_on: ["Network"]
 
 workflows:
-  vpc:
+  development:
     plan:
       steps:
         - init:
@@ -31,20 +31,20 @@ workflows:
             extra_args: [-backend-config="environment/dev/terraform.tfvars"]
         - import:
             extra_args: ["-var-file", "environment/dev/terraform.tfvars"]
-  ecs:
+  production:
     plan:
       steps:
         - init:
-            extra_args: [ -backend-config="environment/dev/terraform.tfvars" ]
+            extra_args: [ -backend-config="environment/prod/terraform.tfvars" ]
         - plan:
-            extra_args: [ "-var-file", "environment/dev/terraform.tfvars" ]
+            extra_args: [ "-var-file", "environment/prod/terraform.tfvars" ]
     apply:
       steps:
         - apply:
-            extra_args: [ "-var-file", "environment/dev/terraform.tfvars"]
+            extra_args: [ "-var-file", "environment/prod/terraform.tfvars"]
     import:
       steps:
         - init:
-            extra_args: [ -backend-config="environment/dev/terraform.tfvars" ]
+            extra_args: [ -backend-config="environment/prod/terraform.tfvars" ]
         - import:
-            extra_args: [ "-var-file", "environment/dev/terraform.tfvars" ]
+            extra_args: [ "-var-file", "environment/prod/terraform.tfvars" ]
