@@ -8,7 +8,7 @@ projects:
       when_modified: [ "*.tf", "environment/dev/terraform.tfvars" ]
   - name: ECS-Cluster
     dir: ./02_ECS_CLUSTER
-    workflow: development
+    workflow: ecs
     autoplan:
       when_modified: [ "*.tf", "environment/dev/terraform.tfvars" ]
     depends_on: ["Network"]
