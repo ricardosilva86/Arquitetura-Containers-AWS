@@ -4,7 +4,7 @@ projects:
   - name: Network
     dir: ./01_VPC
     workflow: development
-    execution_order: 1
+    execution_order_group: 1
     autoplan:
       when_modified: [ "*.tf", "01_VPC/environment/dev/terraform.tfvars" ]
   - name: ECS-Cluster
@@ -12,4 +12,4 @@ projects:
     workflow: development
     autoplan:
       when_modified: [ "*.tf", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
-    execution_order: 2
+    execution_order_group: 2
