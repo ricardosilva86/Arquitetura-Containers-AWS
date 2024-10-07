@@ -3,10 +3,13 @@ abort_on_execution_order_fail: true
 projects:
   - name: Network
     dir: ./01_VPC
+    workflow: development
+    execution_order_group: 1
     autoplan:
-      when_modified: [ "*.tf", "environment/dev/terraform.tfvars" ]
+      when_modified: [ "*.tf", "01_VPC/environment/dev/terraform.tfvars" ]
   - name: ECS-Cluster
     dir: ./02_ECS_CLUSTER
+    workflow: development
     autoplan:
-      when_modified: [ "*.tf", "environment/dev/terraform.tfvars" ]
-    depends_on: ["Network"]
+      when_modified: [ "*.tf", "02_ECS_CLUSTER/environment/dev/terraform.tfvars" ]
+    execution_order_group: 2

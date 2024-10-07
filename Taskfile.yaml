@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  plan:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - terraform plan -var-file=environment/dev/terraform.tfvars -out plan
+
+  apply:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - terraform apply "plan"
+    preconditions:
+      - sh: test -f plan
+        msg: "Roda o 'task plan' antes de rodar o 'task apply', abestado!"
+
+  destroy:
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - terraform destroy -auto-approve -var-file=environment/dev/terraform.tfvars
+      - rm -f plan
